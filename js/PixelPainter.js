@@ -1,42 +1,33 @@
 
 window.onload = function(){
+    var mainContainer = document.createElement("div");
+    mainContainer.id = "main_container";
+    document.body.appendChild(mainContainer);
 
 
   (function general(){
 
-   var container = document.createElement("div");
-   container.id = 'main_container';
-    document.body.appendChild(container);
+
+    var grabMainContainer = document.getElementById('main_container');
 
 
-    var containery = document.getElementById('main_container');
+      var mainGridGenerator = function(x){
 
+        for(var i = 1; i <= x; i++){
+          var aRow = document.createElement('div');
+          //aRow.setAttribute('id', 'b' + i);
+          //newColumn.setAttribute('class');
+          grabMainContainer.appendChild(aRow);
 
-    var mainGridGenerator = function(x){
-
-      for(var i = 1; i <= x; i++){
-        var newColumn = document.createElement('div');
-        newColumn.setAttribute('id', 'b' + i);
-        newColumn.setAttribute('class', 'a_box column');
-
-
-
-
-
-         for(var i = 1; i <= 5; i++){
-          var newRow = document.createElement('div');
-          newRow.setAttribute('id', 'r' + i);
-          newRow.setAttribute('class', 'a_box row');
-          containery.appendChild(newRow);
+           for(var i = 1; i <= 1; i++){
+            var aBox = document.createElement('div');
+            aBox.setAttribute('id', 'r' + i);
+            aBox.setAttribute('class', 'a_box');
+            aRow.appendChild(aBox);
+          }
         }
-containery.appendChild(newColumn);
-}
-    };
-
+      };
     mainGridGenerator(5);
-
-
-
   })();
 
 
