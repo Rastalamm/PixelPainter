@@ -15,10 +15,10 @@ th, td {
 }
 
 .column{
-
+  display: inline-block;
 }
 
 .row{
-  display: inline-block;
-  background-color: red;
+
+  background-color: blue;
 }
