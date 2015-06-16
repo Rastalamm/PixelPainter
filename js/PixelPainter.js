@@ -10,6 +10,8 @@ window.onload = function(){
 
     var grabMainContainer = document.getElementById('gridtofill');
 
+  var mainGridArray = document.getElementsByClassName('a_box');
+
     var mainGridGenerator = function(column, row){
 
       for(var i = 1; i <= row; i++){
@@ -24,8 +26,15 @@ window.onload = function(){
           aRow.appendChild(aBox);
         }
         grabMainContainer.appendChild(aRow);
-
       }
+
+      for(var w = 0; w < mainGridArray.length; w++){
+        mainGridArray[w].addEventListener("click", function(event){
+          event.target.style.backgroundColor = colorSelected;
+          console.log(colorSelected)
+        })
+      }
+
     };
 
 
@@ -46,7 +55,7 @@ window.onload = function(){
     var colorNumber = 0;
 
     var colorSelected;
-    var colorEvent = document.getElementsByClassName('color_box');
+    var colorClassArray = document.getElementsByClassName('color_box');
 
     var colorSwatchGridGenerator = function(column, row){
 
@@ -66,8 +75,8 @@ window.onload = function(){
         grabSwatchContainer.appendChild(aRow);
       }
 
-      for(var w = 0; w < colorEvent.length; w++){
-        colorEvent[w].addEventListener("click", function(event){
+      for(var w = 0; w < colorClassArray.length; w++){
+        colorClassArray[w].addEventListener("click", function(event){
           colorSelected = event.target.style.backgroundColor;
           console.log(colorSelected)
         })
@@ -79,16 +88,7 @@ window.onload = function(){
 
 //build and input box that takes nums and places them here.
     mainGridGenerator(4,4);
-
     colorSwatchGridGenerator(3, 3)
-
-
-
-
-
-       // console.log(colorEvent);
-      //  console.log(colorEvent[0].style.backgroundColor);
-
 
 
 
