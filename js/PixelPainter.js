@@ -97,11 +97,9 @@ window.onload = function(){
   eraseButton.innerHTML = 'Erase';
   colorContainer.appendChild(eraseButton);
 
-
   document.getElementById('erase_button').addEventListener('click', function (){
-        colorSelected = 'transparent';
-        console.log(colorSelected)
-      })
+    colorSelected = 'transparent';
+   })
 
   var clearButton = document.createElement("button");
   clearButton.id = "clear_button";
@@ -122,10 +120,23 @@ window.onload = function(){
     mainGridGenerator(10, 10);
     colorSwatchGridGenerator(3, 3)
 
+  var gridInputHeading = document.createElement("h2");
+  gridInputHeading.id = 'gridInputHeading';
+  gridInputHeading.innerHTML = 'Generate Grid Size'
+  gridContainer.appendChild(gridInputHeading);
 
+  var gridInput1 = document.createElement("input");
+  gridInput1.id = 'gridInput1';
+  gridContainer.appendChild(gridInput1);
 
+  var gridInput2 = document.createElement("input");
+  gridInput2.id = 'gridInput2';
+  gridContainer.appendChild(gridInput2);
 
-
+  var gridGeneratorButton = document.createElement("button");
+  gridGeneratorButton.id = 'gridGeneratorButton';
+  gridGeneratorButton.innerHTML = 'Generate Grid'
+  gridContainer.appendChild(gridGeneratorButton);
 
 
 

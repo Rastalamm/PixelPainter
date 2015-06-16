@@ -6,6 +6,17 @@ th, td {
     padding: 15px;
 }
 
+#gridInput1{
+  width: 25px;
+}
+
+#gridInput2{
+  width: 25px;
+}
+
+#gridGeneratorButton{
+  display: inherit;
+}
 
 .a_box{
   width: 25px;
