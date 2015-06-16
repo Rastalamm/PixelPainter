@@ -22,3 +22,7 @@ th, td {
   display: inline-block;
 
 }
+
+#color_swatch{
+  margin-top: 20px;
+}
