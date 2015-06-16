@@ -32,9 +32,11 @@ window.onload = function(){
     for(var w = 0; w < mainGridArray.length; w++){
       mainGridArray[w].addEventListener("click", function(event){
         event.target.style.backgroundColor = colorSelected;
+
         console.log(colorSelected)
       })
     }
+
 
   };
 
@@ -140,6 +142,5 @@ window.onload = function(){
 
 
 
+
 }
-
-
