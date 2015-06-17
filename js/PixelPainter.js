@@ -16,6 +16,10 @@ window.onload = function(){
 
 function pixelPainterApp(){
 
+  var mainContainer = document.createElement('div');
+  mainContainer.id = 'pixel_container';
+
+
   var colorContainer = document.createElement("div");
   colorContainer.id = 'color_container';
 
@@ -32,12 +36,25 @@ function pixelPainterApp(){
   clearButton.id = "clear_button";
   clearButton.innerHTML = 'Start Fresh';
 
-
   var colorSwatch = document.createElement("div");
   colorSwatch.id = "color_swatch";
 
-  var mainContainer = document.createElement('div');
-  mainContainer.id = 'pixel_container';
+  var eraseButton = document.createElement("div");
+  eraseButton.id = "erase_button";
+
+
+
+
+  var undoDiv = document.createElement('div');
+  undoDiv.id = 'undo_div';
+
+  var undoImg = document.createElement('div');
+  undoImg.id = 'undo_img';
+
+  var undoTxt = document.createElement("div");
+  undoTxt.id = "undo_txt";
+  undoTxt.innerHTML = 'Undo';
+
 
   var gridOuterBox = document.createElement('div');
   gridOuterBox.id = 'grid_outer_box';
@@ -46,12 +63,6 @@ function pixelPainterApp(){
   gridContainer.id = "gridtofill";
 
   var mainGridArray = document.getElementsByClassName('a_box');
-
-  var eraseButton = document.createElement("button");
-  eraseButton.id = "erase_button";
-  eraseButton.innerHTML = 'Erase';
-
-
 
 
   var colorSelected;
@@ -76,13 +87,17 @@ function pixelPainterApp(){
     header.appendChild(colorHeading);
     colorContainer.appendChild(clearButton);
     colorContainer.appendChild(colorSwatch);
+    colorContainer.appendChild(eraseButton);
+    colorContainer.appendChild(undoDiv);
+    undoDiv.appendChild(undoImg);
+    undoDiv.appendChild(undoTxt);
 
     //Grid to fill in
     document.body.appendChild(mainContainer);
     mainContainer.appendChild(gridOuterBox)
     gridOuterBox.appendChild(gridContainer);
 
-    colorContainer.appendChild(eraseButton);
+
 
   }
 
