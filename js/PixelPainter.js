@@ -5,7 +5,7 @@ window.onload = function(){
 
   pixelPainterRun.htmlGenerator();
   pixelPainterRun.mainGridGenerator(15, 15);
-  pixelPainterRun.colorSwatchGridGenerator(3, 3);
+  pixelPainterRun.colorSwatchGridGenerator(6, 6);
   pixelPainterRun.eraseIt();
   pixelPainterRun.clearIt();
 
@@ -18,25 +18,39 @@ function pixelPainterApp(){
 
   var colorContainer = document.createElement("div");
   colorContainer.id = 'color_container';
-  var colorHeading = document.createElement("h2");
-  colorHeading.innerHTML = "Select a color";
+
+  var header = document.createElement('div');
+  header.id = 'header';
+
+  var logo = document.createElement('div');
+  logo.id = 'logo';
+
+  var colorHeading = document.createElement("h1");
+  colorHeading.innerHTML = "Pixel Painter";
+
+  var clearButton = document.createElement("div");
+  clearButton.id = "clear_button";
+  clearButton.innerHTML = 'Start Fresh';
+
+
   var colorSwatch = document.createElement("div");
   colorSwatch.id = "color_swatch";
+
   var mainContainer = document.createElement('div');
   mainContainer.id = 'pixel_container';
+
   var gridOuterBox = document.createElement('div');
   gridOuterBox.id = 'grid_outer_box';
+
   var gridContainer = document.createElement("div");
   gridContainer.id = "gridtofill";
+
   var mainGridArray = document.getElementsByClassName('a_box');
 
   var eraseButton = document.createElement("button");
   eraseButton.id = "erase_button";
   eraseButton.innerHTML = 'Erase';
 
-  var clearButton = document.createElement("button");
-  clearButton.id = "clear_button";
-  clearButton.innerHTML = 'Clear';
 
 
 
@@ -44,7 +58,7 @@ function pixelPainterApp(){
   var colorClassArray = document.getElementsByClassName('color_box');
 
 
-  var colorArray = ['yellow', 'blue', 'red', 'green', 'black', 'pink', 'orange', 'purple', 'white'];
+  var colorArray = ["AliceBlue","AntiqueWhite","Aqua","Aquamarine","Azure","Beige","Bisque","Black","BlanchedAlmond","Blue","BlueViolet","Brown","BurlyWood","CadetBlue","Chartreuse","Chocolate","Coral","CornflowerBlue","Cornsilk","Crimson","Cyan","DarkBlue","DarkCyan","DarkGoldenRod","DarkGray","DarkGrey","DarkGreen","DarkKhaki","DarkMagenta","DarkOliveGreen","Darkorange","DarkOrchid","DarkRed","DarkSalmon","DarkSeaGreen","DarkSlateBlue","DarkSlateGray","DarkSlateGrey","DarkTurquoise","DarkViolet","DeepPink","DeepSkyBlue","DimGray","DimGrey","DodgerBlue","FireBrick","FloralWhite","ForestGreen","Fuchsia","Gainsboro","GhostWhite","Gold","GoldenRod","Gray","Grey","Green","GreenYellow","HoneyDew","HotPink","IndianRed","Indigo","Ivory","Khaki","Lavender","LavenderBlush","LawnGreen","LemonChiffon","LightBlue","LightCoral","LightCyan","LightGoldenRodYellow","LightGray","LightGrey","LightGreen","LightPink","LightSalmon","LightSeaGreen","LightSkyBlue","LightSlateGray","LightSlateGrey","LightSteelBlue","LightYellow","Lime","LimeGreen","Linen","Magenta","Maroon","MediumAquaMarine","MediumBlue","MediumOrchid","MediumPurple","MediumSeaGreen","MediumSlateBlue","MediumSpringGreen","MediumTurquoise","MediumVioletRed","MidnightBlue","MintCream","MistyRose","Moccasin","NavajoWhite","Navy","OldLace","Olive","OliveDrab","Orange","OrangeRed","Orchid","PaleGoldenRod","PaleGreen","PaleTurquoise","PaleVioletRed","PapayaWhip","PeachPuff","Peru","Pink","Plum","PowderBlue","Purple","Red","RosyBrown","RoyalBlue","SaddleBrown","Salmon","SandyBrown","SeaGreen","SeaShell","Sienna","Silver","SkyBlue","SlateBlue","SlateGray","SlateGrey","Snow","SpringGreen","SteelBlue","Tan","Teal","Thistle","Tomato","Turquoise","Violet","Wheat","White","WhiteSmoke","Yellow","YellowGreen"];;
   var colorArrayLength = colorArray.length;
 
   var column = 0;
@@ -53,14 +67,14 @@ function pixelPainterApp(){
 
 
 
-
-
-
   var htmlGenerator = function(){
 
 
     mainContainer.appendChild(colorContainer);
-    colorContainer.appendChild(colorHeading);
+    colorContainer.appendChild(header);
+    header.appendChild(logo);
+    header.appendChild(colorHeading);
+    colorContainer.appendChild(clearButton);
     colorContainer.appendChild(colorSwatch);
 
     //Grid to fill in
@@ -69,7 +83,7 @@ function pixelPainterApp(){
     gridOuterBox.appendChild(gridContainer);
 
     colorContainer.appendChild(eraseButton);
-    colorContainer.appendChild(clearButton);
+
   }
 
 
