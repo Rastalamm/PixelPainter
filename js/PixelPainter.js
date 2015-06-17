@@ -1,17 +1,77 @@
 
 window.onload = function(){
 
+  var pixelPainterRun = pixelPainterApp();
+
+  pixelPainterRun.htmlGenerator();
+  pixelPainterRun.mainGridGenerator(15, 15);
+  pixelPainterRun.colorSwatchGridGenerator(3, 3);
+  pixelPainterRun.eraseIt();
+  pixelPainterRun.clearIt();
+
+  }
+
+
+
+
+function pixelPainterApp(){
+
+  var colorContainer = document.createElement("div");
+  colorContainer.id = 'color_container';
+  var colorHeading = document.createElement("h2");
+  colorHeading.innerHTML = "Select a color";
+  var colorSwatch = document.createElement("div");
+  colorSwatch.id = "color_swatch";
   var mainContainer = document.createElement('div');
-  document.body.appendChild(mainContainer);
-
-
+  mainContainer.id = 'pixel_container';
+  var gridOuterBox = document.createElement('div');
+  gridOuterBox.id = 'grid_outer_box';
   var gridContainer = document.createElement("div");
   gridContainer.id = "gridtofill";
-  mainContainer.appendChild(gridContainer);
-
-  var grabMainContainer = document.getElementById('gridtofill');
-
   var mainGridArray = document.getElementsByClassName('a_box');
+
+  var eraseButton = document.createElement("button");
+  eraseButton.id = "erase_button";
+  eraseButton.innerHTML = 'Erase';
+
+  var clearButton = document.createElement("button");
+  clearButton.id = "clear_button";
+  clearButton.innerHTML = 'Clear';
+
+
+
+  var colorSelected;
+  var colorClassArray = document.getElementsByClassName('color_box');
+
+
+  var colorArray = ['yellow', 'blue', 'red', 'green', 'black', 'pink', 'orange', 'purple', 'white'];
+  var colorArrayLength = colorArray.length;
+
+  var column = 0;
+  var row = 0;
+  var colorNumber = 0;
+
+
+
+
+
+
+  var htmlGenerator = function(){
+
+
+    mainContainer.appendChild(colorContainer);
+    colorContainer.appendChild(colorHeading);
+    colorContainer.appendChild(colorSwatch);
+
+    //Grid to fill in
+    document.body.appendChild(mainContainer);
+    mainContainer.appendChild(gridOuterBox)
+    gridOuterBox.appendChild(gridContainer);
+
+    colorContainer.appendChild(eraseButton);
+    colorContainer.appendChild(clearButton);
+  }
+
 
   var mainGridGenerator = function(column, row){
 
@@ -26,46 +86,17 @@ window.onload = function(){
         aBox.setAttribute('class', 'a_box');
         aRow.appendChild(aBox);
       }
-      grabMainContainer.appendChild(aRow);
+      gridContainer.appendChild(aRow);
     }
 
     for(var w = 0; w < mainGridArray.length; w++){
       mainGridArray[w].addEventListener("click", function(event){
         event.target.style.backgroundColor = colorSelected;
-
         console.log(colorSelected)
       })
     }
-
-
   };
 
-  //Color swatch
-  var colorContainer = document.createElement("div");
-  colorContainer.id = 'color_container';
-  mainContainer.appendChild(colorContainer);
-
-  var colorHeading = document.createElement("h2");
-  colorHeading.innerHTML = "Select a color";
-  colorContainer.appendChild(colorHeading);
-
-
-  var colorSwatch = document.createElement("div");
-  colorSwatch.id = "color_swatch";
-  colorContainer.appendChild(colorSwatch);
-
-
-
-  var grabSwatchContainer = document.getElementById('color_swatch');
-  var colorArray = ['yellow', 'blue', 'red', 'green', 'black', 'pink', 'orange', 'purple', 'white'];
-  var colorArrayLength = colorArray.length;
-
-  var column = 0;
-  var row = 0;
-  var colorNumber = 0;
-
-  var colorSelected;
-  var colorClassArray = document.getElementsByClassName('color_box');
 
   var colorSwatchGridGenerator = function(column, row){
 
@@ -82,7 +113,7 @@ window.onload = function(){
         colorBox.setAttribute('class', 'color_box');
         aRow.appendChild(colorBox);
       }
-      grabSwatchContainer.appendChild(aRow);
+      colorSwatch.appendChild(aRow);
     }
 
     for(var w = 0; w < colorClassArray.length; w++){
@@ -91,56 +122,55 @@ window.onload = function(){
         console.log(colorSelected)
       })
     }
-
   };
 
-  var eraseButton = document.createElement("button");
-  eraseButton.id = "erase_button";
-  eraseButton.innerHTML = 'Erase';
-  colorContainer.appendChild(eraseButton);
-
-  document.getElementById('erase_button').addEventListener('click', function (){
-    colorSelected = 'transparent';
-   })
-
-  var clearButton = document.createElement("button");
-  clearButton.id = "clear_button";
-  clearButton.innerHTML = 'Clear';
-  colorContainer.appendChild(clearButton);
-
-  document.getElementById('clear_button').addEventListener('click', function (){
-    for(var i = 0; i < mainGridArray.length; i++){
-      mainGridArray[i].style.backgroundColor = 'transparent';
-    }
-  })
+  var eraseIt = function(){
+    document.getElementById('erase_button').addEventListener('click', function (){
+      colorSelected = 'transparent';
+    })
+  }
 
 
-
+  var clearIt = function(){
+    document.getElementById('clear_button').addEventListener('click', function (){
+      for(var i = 0; i < mainGridArray.length; i++){
+        mainGridArray[i].style.backgroundColor = 'transparent';
+      }
+    })
+  }
 
 
 //build and input box that takes nums and places them here.
-    mainGridGenerator(10, 10);
-    colorSwatchGridGenerator(3, 3)
-
-  var gridInputHeading = document.createElement("h2");
-  gridInputHeading.id = 'gridInputHeading';
-  gridInputHeading.innerHTML = 'Generate Grid Size'
-  gridContainer.appendChild(gridInputHeading);
-
-  var gridInput1 = document.createElement("input");
-  gridInput1.id = 'gridInput1';
-  gridContainer.appendChild(gridInput1);
-
-  var gridInput2 = document.createElement("input");
-  gridInput2.id = 'gridInput2';
-  gridContainer.appendChild(gridInput2);
-
-  var gridGeneratorButton = document.createElement("button");
-  gridGeneratorButton.id = 'gridGeneratorButton';
-  gridGeneratorButton.innerHTML = 'Generate Grid'
-  gridContainer.appendChild(gridGeneratorButton);
 
 
+  // var gridInputHeading = document.createElement("h2");
+  // gridInputHeading.id = 'gridInputHeading';
+  // gridInputHeading.innerHTML = 'Generate Grid Size'
+  // gridContainer.appendChild(gridInputHeading);
 
+  // var gridInput1 = document.createElement("input");
+  // gridInput1.id = 'gridInput1';
+  // gridContainer.appendChild(gridInput1);
+
+  // var gridInput2 = document.createElement("input");
+  // gridInput2.id = 'gridInput2';
+  // gridContainer.appendChild(gridInput2);
+
+  // var gridGeneratorButton = document.createElement("button");
+  // gridGeneratorButton.id = 'gridGeneratorButton';
+  // gridGeneratorButton.innerHTML = 'Generate Grid'
+  // gridContainer.appendChild(gridGeneratorButton);
+
+
+  return {
+    htmlGenerator : htmlGenerator,
+    mainGridGenerator : mainGridGenerator,
+    colorSwatchGridGenerator : colorSwatchGridGenerator,
+    eraseIt : eraseIt,
+    clearIt : clearIt,
+    }
 
 }
+
+
+

@@ -1,9 +1,29 @@
-table, th, td {
-    border: 1px solid black;
-    border-collapse: collapse;
+/*font-family: 'Roboto Slab', serif;*/
+
+body{
+  font-family: 'Roboto Slab', serif;
 }
-th, td {
-    padding: 15px;
+
+#color_container{
+  width: 275px;
+  height: 700px;
+  float: left;
+  border: 1px solid black;
+}
+
+
+#grid_outer_box{
+  display: inline-flex;
+  height: 700px;
+  width: 700px;
+  border: 1px solid black;
+  margin: auto;
+}
+
+#gridtofill{
+  height: 550px;
+  width: 575px;
+  margin: auto
 }
 
 #gridInput1{
@@ -19,8 +39,8 @@ th, td {
 }
 
 .a_box{
-  width: 25px;
-  height: 25px;
+  width: 35px;
+  height: 35px;
   border: 1px solid black;
   display: inline-block;
 
