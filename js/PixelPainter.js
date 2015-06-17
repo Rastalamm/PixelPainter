@@ -78,7 +78,7 @@ function pixelPainterApp(){
 
 
 
-  var htmlGenerator = function(){
+  var _htmlGenerator = function(){
 
 
     mainContainer.appendChild(colorContainer);
@@ -102,7 +102,7 @@ function pixelPainterApp(){
   }
 
 
-  var mainGridGenerator = function(column, row){
+  var _mainGridGenerator = function(column, row){
 
     for(var i = 1; i <= row; i++){
       var aRow = document.createElement('div');
@@ -127,7 +127,7 @@ function pixelPainterApp(){
   };
 
 
-  var colorSwatchGridGenerator = function(column, row){
+  var _colorSwatchGridGenerator = function(column, row){
 
     for(var i = 1; i <= row; i++){
       var aRow = document.createElement('div');
@@ -153,14 +153,14 @@ function pixelPainterApp(){
     }
   };
 
-  var eraseIt = function(){
+  var _eraseIt = function(){
     document.getElementById('erase_button').addEventListener('click', function (){
       colorSelected = 'transparent';
     })
   }
 
 
-  var clearIt = function(){
+  var _clearIt = function(){
     document.getElementById('clear_button').addEventListener('click', function (){
       for(var i = 0; i < mainGridArray.length; i++){
         mainGridArray[i].style.backgroundColor = 'transparent';
@@ -192,11 +192,11 @@ function pixelPainterApp(){
 
 
   return {
-    htmlGenerator : htmlGenerator,
-    mainGridGenerator : mainGridGenerator,
-    colorSwatchGridGenerator : colorSwatchGridGenerator,
-    eraseIt : eraseIt,
-    clearIt : clearIt,
+    htmlGenerator : _htmlGenerator,
+    mainGridGenerator : _mainGridGenerator,
+    colorSwatchGridGenerator : _colorSwatchGridGenerator,
+    eraseIt : _eraseIt,
+    clearIt : _clearIt,
     }
 
 }
