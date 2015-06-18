@@ -166,16 +166,24 @@ function pixelPainterApp(){
     })
 
     //mouseup
-    window.addEventListener("mouseup", function(event){
+    document.getElementById('gridtofill').addEventListener("mouseup", function(event){
       historyOfActions.push(previousColor);
       previousColor = {};
-
+      console.log(historyOfActions);
       mouseDowned = false;
     })
+
+//Adjust
+    // window.addEventListener("mouseup", function(event){
+    //   historyOfActions.push(previousColor);
+    //   mouseDowned = false;
+    // })
+
     //mouseover
 
     document.getElementById('gridtofill').addEventListener("mouseover", function(event){
       if(mouseDowned){
+        previousColor[event['target'].id] = event.target.style.backgroundColor; //grabs the previous color
         event.target.style.backgroundColor = colorSelected;
       }
     })
