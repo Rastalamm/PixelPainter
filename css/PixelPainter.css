@@ -1,10 +1,4 @@
 /*font-family: 'Roboto Slab', serif;*/
-#F26823
-
-body{
-  font-family: 'Roboto Slab', serif;
-  background-color: #DEDFBE;
-}
 
 #sidebar{
   width: 250px;
@@ -34,8 +28,9 @@ body{
 
 #heading_text{
   display: inline-block;
-  font-size: 23px;
+  font-size: 21px;
   color: #F26823;
+  font-family: 'Roboto Slab', serif;
 }
 
 
@@ -47,6 +42,7 @@ body{
   line-height: 40px;
   color: #777855;
   font-size: 18px;
+  font-family: 'Roboto Slab', serif;
 }
 
 #clear_button:hover{
@@ -64,6 +60,7 @@ body{
   height: 25px;
   background-color: #FFFFFF;
   float: left;
+  border: 1px solid #252118;
 }
 
 #erase_button:hover{
@@ -85,6 +82,7 @@ body{
   color: #777855;
   float: right;
   padding-right: 10px;
+  font-family: 'Roboto Slab', serif;
 }
 
 #undo_div:hover{
@@ -92,23 +90,6 @@ body{
   color: #F26823;
 }
 
-#undo_img{
-
-  width: 15px;
-  height: 15px;
-  display: inline-block;
-  margin-right: 10px;
-
-}
-
-#undo_txt{
-  display: inline-block;
-
-}
-
-#undo_txt:hover{
-  color: #F26823;
-}
 
 
 #grid_outer_box{

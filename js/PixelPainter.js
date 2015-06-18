@@ -1,4 +1,12 @@
+/*
+undo function
+random generate colors on load
+unqiuely sized grids (add in buttons)
+start fresh
 
+Stretch
+save painting / auto generate them
+*/
 window.onload = function(){
 
   var pixelPainterRun = pixelPainterApp();
@@ -6,12 +14,12 @@ window.onload = function(){
   pixelPainterRun.htmlGenerator();
   pixelPainterRun.mainGridGenerator(15, 15);
   pixelPainterRun.colorSwatchGridGenerator(6, 6);
+  pixelPainterRun.undoIt();
   pixelPainterRun.eraseIt();
   pixelPainterRun.clearIt();
+  pixelPainterRun.mouseActions();
 
   }
-
-
 
 
 function pixelPainterApp(){
@@ -21,7 +29,6 @@ function pixelPainterApp(){
 
   var sidebar = document.createElement('div');
   sidebar.id = 'sidebar';
-
 
   var colorContainer = document.createElement("div");
   colorContainer.id = 'color_container';
@@ -33,7 +40,7 @@ function pixelPainterApp(){
   logo.id = 'logo';
 
   var colorHeading = document.createElement("h1");
-  colorHeading.id = 'heading_text'
+  colorHeading.id = 'heading_text';
   colorHeading.innerHTML = "Pixel Painter";
 
   var clearButton = document.createElement("div");
@@ -47,8 +54,6 @@ function pixelPainterApp(){
   eraseButton.id = "erase_button";
 
 
-
-
   var undoDiv = document.createElement('div');
   undoDiv.id = 'undo_div';
   undoDiv.innerHTML = 'Undo';
@@ -59,6 +64,8 @@ function pixelPainterApp(){
 
   var gridContainer = document.createElement("div");
   gridContainer.id = "gridtofill";
+
+  var idBoxCount = 1;
 
   var mainGridArray = document.getElementsByClassName('a_box');
 
@@ -74,6 +81,8 @@ function pixelPainterApp(){
   var row = 0;
   var colorNumber = 0;
 
+  var allTheColorsDrawn = [];
+
 
 
   var _htmlGenerator = function(){
@@ -88,18 +97,16 @@ function pixelPainterApp(){
     colorContainer.appendChild(eraseButton);
     colorContainer.appendChild(undoDiv);
 
-
     //Grid to fill in
     document.body.appendChild(mainContainer);
     mainContainer.appendChild(gridOuterBox)
     gridOuterBox.appendChild(gridContainer);
 
-
-
   }
 
 
   var _mainGridGenerator = function(column, row){
+
 
     for(var i = 1; i <= row; i++){
       var aRow = document.createElement('div');
@@ -107,22 +114,62 @@ function pixelPainterApp(){
       aRow.setAttribute('class', 'row');
 
       for(var j = 1; j <= column; j++){
+
         var aBox = document.createElement('div');
-        aBox.setAttribute('id', 'box' + j);
+        aBox.setAttribute('id', 'box' + idBoxCount);
+        idBoxCount++;
         aBox.setAttribute('class', 'a_box');
         aRow.appendChild(aBox);
       }
       gridContainer.appendChild(aRow);
     }
 
+    //adds a click function to each box in the grid
     for(var w = 0; w < mainGridArray.length; w++){
-      mainGridArray[w].addEventListener("click", function(event){
-        event.target.style.backgroundColor = colorSelected;
-        console.log(colorSelected)
-      })
+      // mainGridArray[w].addEventListener("click", function(event){
+      //  // event.target.style.backgroundColor = colorSelected;
+      //   allTheColorsDrawn.push([event,colorSelected])
+      //   console.log(colorSelected)
+      //   console.log(allTheColorsDrawn);
+      // })
     }
+
+
+
+
+
+
+
+
   };
 
+
+  var mouseDowned;
+  var _mouseActions = function(){
+    //mousedown
+    document.getElementById('gridtofill').addEventListener("mousedown", function(event){
+      event.preventDefault();
+      event.target.style.backgroundColor = colorSelected;
+      mouseDowned = true;
+      console.log(colorSelected)
+    })
+    //mouseup
+    document.getElementById('gridtofill').addEventListener("mouseup", function(event){
+      mouseDowned = false;
+    })
+    //mouseover
+
+    document.getElementById('gridtofill').addEventListener("mouseover", function(event){
+      if(mouseDowned){
+        event.target.style.backgroundColor = colorSelected;
+      }
+    })
+
+    document.getElementById('grid_outer_box').addEventListener('mouseup', function(){
+        mouseDowned = false;
+    })
+
+  }
 
   var _colorSwatchGridGenerator = function(column, row){
 
@@ -151,19 +198,23 @@ function pixelPainterApp(){
     }
   };
 
+  var _undoIt = function(){
+
+  }
+
   var _eraseIt = function(){
     document.getElementById('erase_button').addEventListener('click', function (){
       colorSelected = '#FFFFFF';
-      gridOuterBox.style.backgroundColor = colorSelected;
+      gridOuterBox.style.backgroundColor = '#FFFFFF';
     })
   }
-
 
   var _clearIt = function(){
     document.getElementById('clear_button').addEventListener('click', function (){
       for(var i = 0; i < mainGridArray.length; i++){
         mainGridArray[i].style.backgroundColor = '#FFFFFF';
       }
+      gridOuterBox.style.backgroundColor = '#DEDFBE';
     })
   }
 
@@ -194,8 +245,10 @@ function pixelPainterApp(){
     htmlGenerator : _htmlGenerator,
     mainGridGenerator : _mainGridGenerator,
     colorSwatchGridGenerator : _colorSwatchGridGenerator,
+    undoIt : _undoIt,
     eraseIt : _eraseIt,
     clearIt : _clearIt,
+    mouseActions : _mouseActions
     }
 
 }
