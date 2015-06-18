@@ -3,7 +3,7 @@
 
 body{
   font-family: 'Roboto Slab', serif;
-  font-weight: 700;
+  background-color: #DEDFBE;
 }
 
 #sidebar{
@@ -21,7 +21,7 @@ body{
 }
 
 #header{
-  margin: 40px 5px 10px 0px;
+  margin: 23px 5px 10px 0px;
 }
 
 #logo{
@@ -64,10 +64,11 @@ body{
   height: 25px;
   background-color: #FFFFFF;
   float: left;
+  border: 1px solid black;
 }
 
 #erase_button:hover{
-  border: 1px solid #FFFFFF;
+  border: 2px solid black;
 }
 
 #undo_div{
@@ -112,18 +113,15 @@ body{
 
 
 #grid_outer_box{
-  display: inline-flex;
+  display: inline-block;
   height: 700px;
   width: 700px;
-  border: 1px solid black;
   margin: auto;
   background-color: #DEDFBE;
 }
 
 #gridtofill{
-  height: 550px;
-  width: 575px;
-  margin: auto
+  margin: 40px;
 }
 
 #gridInput1{

@@ -145,6 +145,7 @@ function pixelPainterApp(){
     for(var w = 0; w < colorClassArray.length; w++){
       colorClassArray[w].addEventListener("click", function(event){
         colorSelected = event.target.style.backgroundColor;
+        sidebar.style.backgroundColor = colorSelected;
         console.log(colorSelected)
       })
     }
@@ -153,6 +154,7 @@ function pixelPainterApp(){
   var _eraseIt = function(){
     document.getElementById('erase_button').addEventListener('click', function (){
       colorSelected = '#FFFFFF';
+      sidebar.style.backgroundColor = colorSelected;
     })
   }
 
