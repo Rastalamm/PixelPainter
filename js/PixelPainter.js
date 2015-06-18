@@ -1,9 +1,10 @@
 /*
 undo function
-random generate colors on load
-unqiuely sized grids (add in buttons)
-start fresh
 
+unqiuely sized grids (add in buttons)
+
+
+highlight color box's when selected
 Stretch
 save painting / auto generate them
 */
@@ -79,7 +80,7 @@ function pixelPainterApp(){
 
   var column = 0;
   var row = 0;
-  var colorNumber = 0;
+  var randomColor;
 
   var allTheColorsDrawn = [];
 
@@ -123,29 +124,12 @@ function pixelPainterApp(){
       }
       gridContainer.appendChild(aRow);
     }
-
-    //adds a click function to each box in the grid
-    for(var w = 0; w < mainGridArray.length; w++){
-      // mainGridArray[w].addEventListener("click", function(event){
-      //  // event.target.style.backgroundColor = colorSelected;
-      //   allTheColorsDrawn.push([event,colorSelected])
-      //   console.log(colorSelected)
-      //   console.log(allTheColorsDrawn);
-      // })
-    }
-
-
-
-
-
-
-
-
   };
 
 
   var mouseDowned;
   var _mouseActions = function(){
+
     //mousedown
     document.getElementById('gridtofill').addEventListener("mousedown", function(event){
       event.preventDefault();
@@ -153,6 +137,7 @@ function pixelPainterApp(){
       mouseDowned = true;
       console.log(colorSelected)
     })
+
     //mouseup
     document.getElementById('gridtofill').addEventListener("mouseup", function(event){
       mouseDowned = false;
@@ -181,8 +166,8 @@ function pixelPainterApp(){
       for(var j = 1; j <= column; j++){
         var colorBox = document.createElement('div');
         colorBox.setAttribute('id', 'colorbox' + j);
-        colorBox.style.backgroundColor = colorArray[colorNumber];
-        colorNumber++;
+        randomColor = Math.floor(Math.random() * (colorArrayLength + 1))
+        colorBox.style.backgroundColor = colorArray[randomColor];
         colorBox.setAttribute('class', 'color_box');
         aRow.appendChild(colorBox);
       }
@@ -193,7 +178,7 @@ function pixelPainterApp(){
       colorClassArray[w].addEventListener("click", function(event){
         colorSelected = event.target.style.backgroundColor;
         gridOuterBox.style.backgroundColor = colorSelected;
-        console.log(colorSelected)
+        console.log('when chosen', colorSelected)
       })
     }
   };
@@ -204,13 +189,14 @@ function pixelPainterApp(){
 
   var _eraseIt = function(){
     document.getElementById('erase_button').addEventListener('click', function (){
-      colorSelected = '#FFFFFF';
       gridOuterBox.style.backgroundColor = '#FFFFFF';
+      colorSelected = '#FFFFFF';
     })
   }
 
   var _clearIt = function(){
     document.getElementById('clear_button').addEventListener('click', function (){
+      colorSelected = '#FFFFFF';
       for(var i = 0; i < mainGridArray.length; i++){
         mainGridArray[i].style.backgroundColor = '#FFFFFF';
       }
