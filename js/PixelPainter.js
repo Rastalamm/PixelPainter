@@ -19,6 +19,9 @@ function pixelPainterApp(){
   var mainContainer = document.createElement('div');
   mainContainer.id = 'pixel_container';
 
+  var sidebar = document.createElement('div');
+  sidebar.id = 'sidebar';
+
 
   var colorContainer = document.createElement("div");
   colorContainer.id = 'color_container';
@@ -30,6 +33,7 @@ function pixelPainterApp(){
   logo.id = 'logo';
 
   var colorHeading = document.createElement("h1");
+  colorHeading.id = 'heading_text'
   colorHeading.innerHTML = "Pixel Painter";
 
   var clearButton = document.createElement("div");
@@ -47,13 +51,7 @@ function pixelPainterApp(){
 
   var undoDiv = document.createElement('div');
   undoDiv.id = 'undo_div';
-
-  var undoImg = document.createElement('div');
-  undoImg.id = 'undo_img';
-
-  var undoTxt = document.createElement("div");
-  undoTxt.id = "undo_txt";
-  undoTxt.innerHTML = 'Undo';
+  undoDiv.innerHTML = 'Undo';
 
 
   var gridOuterBox = document.createElement('div');
@@ -80,8 +78,8 @@ function pixelPainterApp(){
 
   var _htmlGenerator = function(){
 
-
-    mainContainer.appendChild(colorContainer);
+    mainContainer.appendChild(sidebar);
+    sidebar.appendChild(colorContainer);
     colorContainer.appendChild(header);
     header.appendChild(logo);
     header.appendChild(colorHeading);
@@ -89,8 +87,7 @@ function pixelPainterApp(){
     colorContainer.appendChild(colorSwatch);
     colorContainer.appendChild(eraseButton);
     colorContainer.appendChild(undoDiv);
-    undoDiv.appendChild(undoImg);
-    undoDiv.appendChild(undoTxt);
+
 
     //Grid to fill in
     document.body.appendChild(mainContainer);
@@ -155,7 +152,7 @@ function pixelPainterApp(){
 
   var _eraseIt = function(){
     document.getElementById('erase_button').addEventListener('click', function (){
-      colorSelected = 'transparent';
+      colorSelected = '#FFFFFF';
     })
   }
 
@@ -163,7 +160,7 @@ function pixelPainterApp(){
   var _clearIt = function(){
     document.getElementById('clear_button').addEventListener('click', function (){
       for(var i = 0; i < mainGridArray.length; i++){
-        mainGridArray[i].style.backgroundColor = 'transparent';
+        mainGridArray[i].style.backgroundColor = '#FFFFFF';
       }
     })
   }
