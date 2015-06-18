@@ -3,6 +3,7 @@ undo function
 
 unqiuely sized grids (add in buttons)
 
+replace all doc.get.element.by.id
 
 highlight color box's when selected
 Stretch
@@ -55,9 +56,9 @@ function pixelPainterApp(){
   eraseButton.id = "erase_button";
 
 
-  var undoDiv = document.createElement('div');
-  undoDiv.id = 'undo_div';
-  undoDiv.innerHTML = 'Undo';
+  var undoButton = document.createElement('div');
+  undoButton.id = 'undo_div';
+  undoButton.innerHTML = 'Undo';
 
 
   var gridOuterBox = document.createElement('div');
@@ -71,7 +72,7 @@ function pixelPainterApp(){
   var mainGridArray = document.getElementsByClassName('a_box');
 
 
-  var colorSelected;
+  var colorSelected = '#FFFFFF';
   var colorClassArray = document.getElementsByClassName('color_box');
 
 
@@ -81,10 +82,6 @@ function pixelPainterApp(){
   var column = 0;
   var row = 0;
   var randomColor;
-
-  var allTheColorsDrawn = [];
-
-
 
   var _htmlGenerator = function(){
 
@@ -96,7 +93,7 @@ function pixelPainterApp(){
     colorContainer.appendChild(clearButton);
     colorContainer.appendChild(colorSwatch);
     colorContainer.appendChild(eraseButton);
-    colorContainer.appendChild(undoDiv);
+    colorContainer.appendChild(undoButton);
 
     //Grid to fill in
     document.body.appendChild(mainContainer);
@@ -126,36 +123,6 @@ function pixelPainterApp(){
     }
   };
 
-
-  var mouseDowned;
-  var _mouseActions = function(){
-
-    //mousedown
-    document.getElementById('gridtofill').addEventListener("mousedown", function(event){
-      event.preventDefault();
-      event.target.style.backgroundColor = colorSelected;
-      mouseDowned = true;
-      console.log(colorSelected)
-    })
-
-    //mouseup
-    document.getElementById('gridtofill').addEventListener("mouseup", function(event){
-      mouseDowned = false;
-    })
-    //mouseover
-
-    document.getElementById('gridtofill').addEventListener("mouseover", function(event){
-      if(mouseDowned){
-        event.target.style.backgroundColor = colorSelected;
-      }
-    })
-
-    document.getElementById('grid_outer_box').addEventListener('mouseup', function(){
-        mouseDowned = false;
-    })
-
-  }
-
   var _colorSwatchGridGenerator = function(column, row){
 
     for(var i = 1; i <= row; i++){
@@ -183,7 +150,58 @@ function pixelPainterApp(){
     }
   };
 
+  var mouseDowned;
+
+  var previousColor = {};
+  var historyOfActions = [];
+
+  var _mouseActions = function(){
+
+    //mousedown
+    document.getElementById('gridtofill').addEventListener("mousedown", function(event){
+      event.preventDefault();
+      previousColor[event['target'].id] = event.target.style.backgroundColor; //grabs the previous color
+      event.target.style.backgroundColor = colorSelected;
+      mouseDowned = true;
+    })
+
+    //mouseup
+    window.addEventListener("mouseup", function(event){
+      historyOfActions.push(previousColor);
+      previousColor = {};
+
+      mouseDowned = false;
+    })
+    //mouseover
+
+    document.getElementById('gridtofill').addEventListener("mouseover", function(event){
+      if(mouseDowned){
+        event.target.style.backgroundColor = colorSelected;
+      }
+    })
+
+    document.getElementById('grid_outer_box').addEventListener('mouseup', function(){
+        mouseDowned = false;
+    })
+
+  }
+
+
+var poppedOut;
   var _undoIt = function(){
+    undoButton.addEventListener('click', function(){
+
+        poppedOut = historyOfActions.pop();
+
+
+        for (key in poppedOut){
+          console.log('the key', key);
+          document.getElementById(key).style.backgroundColor = poppedOut[key];
+
+        }
+
+    })
+
 
   }
 
