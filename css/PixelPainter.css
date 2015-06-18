@@ -64,11 +64,10 @@ body{
   height: 25px;
   background-color: #FFFFFF;
   float: left;
-  border: 1px solid black;
 }
 
 #erase_button:hover{
-  border: 2px solid black;
+  border: 1px solid #FFFFFF;
 }
 
 #undo_div{
