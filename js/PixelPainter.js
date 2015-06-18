@@ -157,20 +157,37 @@ function pixelPainterApp(){
 
   var _mouseActions = function(){
 
+    //onclick
+    document.getElementById('gridtofill').addEventListener('click', function(event){
+      event.preventDefault();
+      previousColor[event['target'].id] = event.target.style.backgroundColor; //sets obj to the previous color
+      historyOfActions.push(previousColor);
+      previousColor = {};
+      event.target.style.backgroundColor = colorSelected;
+      //mouseDowned = true;
+      console.log('history', historyOfActions)
+      console.log(previousColor);
+    })
+
+
+
     //mousedown
     document.getElementById('gridtofill').addEventListener("mousedown", function(event){
       event.preventDefault();
-      previousColor[event['target'].id] = event.target.style.backgroundColor; //grabs the previous color
-      event.target.style.backgroundColor = colorSelected;
+      // previousColor[event['target'].id] = event.target.style.backgroundColor; //sets obj to the previous color
+      // historyOfActions.push(previousColor);
+      // previousColor = {};
+      // event.target.style.backgroundColor = colorSelected;
       mouseDowned = true;
+      // console.log('history', historyOfActions)
+      // console.log(previousColor);
     })
 
     //mouseup
     document.getElementById('gridtofill').addEventListener("mouseup", function(event){
-      historyOfActions.push(previousColor);
-      previousColor = {};
-      console.log(historyOfActions);
       mouseDowned = false;
+      previousColor = {};
+
     })
 
 //Adjust
@@ -183,8 +200,12 @@ function pixelPainterApp(){
 
     document.getElementById('gridtofill').addEventListener("mouseover", function(event){
       if(mouseDowned){
-        previousColor[event['target'].id] = event.target.style.backgroundColor; //grabs the previous color
-        event.target.style.backgroundColor = colorSelected;
+      previousColor[event['target'].id] = event.target.style.backgroundColor; //sets obj to the previous color
+      historyOfActions.push(previousColor);
+      //previousColor = {};
+      event.target.style.backgroundColor = colorSelected;
+      console.log('history', historyOfActions)
+      console.log(previousColor);
       }
     })
 
