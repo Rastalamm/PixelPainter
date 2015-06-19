@@ -115,7 +115,6 @@ function pixelPainterApp () {
       aRow.setAttribute('class', 'row');
 
       for(var j = 1; j <= column; j++){
-
         var aBox = document.createElement('div');
         aBox.setAttribute('id', 'box' + idBoxCount);
         idBoxCount++;
@@ -147,8 +146,10 @@ function pixelPainterApp () {
     for(var w = 0; w < colorClassArray.length; w++){
       colorClassArray[w].addEventListener("click", function(event){
         colorSelected = event.target.style.backgroundColor;
+        //adds a white border to the color chosen -
+        //need to add functionality to remove the last one that was clicked
+        event.target.style.border = '1px solid white';
         gridOuterBox.style.backgroundColor = colorSelected;
-        console.log('when chosen', colorSelected)
       })
     }
   };
@@ -163,11 +164,9 @@ function pixelPainterApp () {
     document.getElementById('gridtofill').addEventListener('mousedown', function(event){
       event.preventDefault();
       if(!(event.target.id in previousColor)){
-        console.log('trigger!',event.target.id);
         previousColor[event.target.id] = event.target.style.backgroundColor;
       }
       event.target.style.backgroundColor = colorSelected;
-      console.log('history', historyOfActions)
       mouseDowned = true;
     })
 
@@ -176,7 +175,6 @@ function pixelPainterApp () {
       mouseDowned = false;
       historyOfActions.push(previousColor);
       previousColor = {};
-      console.log('mouseup', historyOfActions)
     })
 
     //mouseover
@@ -186,7 +184,6 @@ function pixelPainterApp () {
       if(mouseDowned){
 
       if(!(event.target.id in previousColor)){
-        console.log('trigger!',event.target.id);
         previousColor[event['target'].id] = event.target.style.backgroundColor;
       }
 
@@ -205,14 +202,10 @@ function pixelPainterApp () {
 
   var lastMove;
 
-
-
     undoButton.addEventListener('click', function(){
     event.preventDefault();
         lastMove = historyOfActions.pop();
-
         for (key in lastMove){
-          console.log('the key', key);
           document.getElementById(key).style.backgroundColor = lastMove[key];
         }
 
@@ -235,6 +228,7 @@ function pixelPainterApp () {
         mainGridArray[i].style.backgroundColor = '#FFFFFF';
       }
       gridOuterBox.style.backgroundColor = '#DEDFBE';
+      historyOfActions = [];
     })
   }
 
