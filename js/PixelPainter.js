@@ -157,55 +157,39 @@ function pixelPainterApp(){
 
   var _mouseActions = function(){
 
-    //onclick
-    document.getElementById('gridtofill').addEventListener('click', function(event){
-      event.preventDefault();
-      previousColor[event['target'].id] = event.target.style.backgroundColor; //sets obj to the previous color
-      historyOfActions.push(previousColor);
-      previousColor = {};
-      event.target.style.backgroundColor = colorSelected;
-      //mouseDowned = true;
-      console.log('history', historyOfActions)
-      console.log(previousColor);
-    })
-
 
 
     //mousedown
-    document.getElementById('gridtofill').addEventListener("mousedown", function(event){
+    document.getElementById('gridtofill').addEventListener('mousedown', function(event){
       event.preventDefault();
-      // previousColor[event['target'].id] = event.target.style.backgroundColor; //sets obj to the previous color
-      // historyOfActions.push(previousColor);
-      // previousColor = {};
-      // event.target.style.backgroundColor = colorSelected;
+      if(!(event.target.id in previousColor)){
+        previousColor[event.target.id] = event.target.style.backgroundColor;
+      }
+      event.target.style.backgroundColor = colorSelected;
+
       mouseDowned = true;
-      // console.log('history', historyOfActions)
-      // console.log(previousColor);
     })
 
     //mouseup
     document.getElementById('gridtofill').addEventListener("mouseup", function(event){
       mouseDowned = false;
+      historyOfActions.push(previousColor);
       previousColor = {};
 
     })
 
-//Adjust
-    // window.addEventListener("mouseup", function(event){
-    //   historyOfActions.push(previousColor);
-    //   mouseDowned = false;
-    // })
-
     //mouseover
 
     document.getElementById('gridtofill').addEventListener("mouseover", function(event){
+      event.preventDefault();
       if(mouseDowned){
-      previousColor[event['target'].id] = event.target.style.backgroundColor; //sets obj to the previous color
-      historyOfActions.push(previousColor);
-      //previousColor = {};
-      event.target.style.backgroundColor = colorSelected;
-      console.log('history', historyOfActions)
-      console.log(previousColor);
+
+      if(!(event.target.id in previousColor)){
+        console.log('trigger!',event.target.id);
+        previousColor[event['target'].id] = event.target.style.backgroundColor;
+      }
+        event.target.style.backgroundColor = colorSelected;
+
       }
     })
 
@@ -219,16 +203,17 @@ function pixelPainterApp(){
 var poppedOut;
   var _undoIt = function(){
     undoButton.addEventListener('click', function(){
+      console.log('history', historyOfActions)
+      console.log(historyOfActions);
 
         poppedOut = historyOfActions.pop();
-
 
         for (key in poppedOut){
           console.log('the key', key);
           document.getElementById(key).style.backgroundColor = poppedOut[key];
 
         }
-
+console.log('history', historyOfActions)
     })
 
 
