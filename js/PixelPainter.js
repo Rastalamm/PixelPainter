@@ -24,7 +24,7 @@ window.onload = function(){
   }
 
 
-function pixelPainterApp(){
+function pixelPainterApp () {
 
   var mainContainer = document.createElement('div');
   mainContainer.id = 'pixel_container';
@@ -163,10 +163,11 @@ function pixelPainterApp(){
     document.getElementById('gridtofill').addEventListener('mousedown', function(event){
       event.preventDefault();
       if(!(event.target.id in previousColor)){
+        console.log('trigger!',event.target.id);
         previousColor[event.target.id] = event.target.style.backgroundColor;
       }
       event.target.style.backgroundColor = colorSelected;
-
+      console.log('history', historyOfActions)
       mouseDowned = true;
     })
 
@@ -175,7 +176,7 @@ function pixelPainterApp(){
       mouseDowned = false;
       historyOfActions.push(previousColor);
       previousColor = {};
-
+      console.log('mouseup', historyOfActions)
     })
 
     //mouseover
@@ -188,6 +189,8 @@ function pixelPainterApp(){
         console.log('trigger!',event.target.id);
         previousColor[event['target'].id] = event.target.style.backgroundColor;
       }
+
+
         event.target.style.backgroundColor = colorSelected;
 
       }
@@ -200,22 +203,18 @@ function pixelPainterApp(){
   }
 
 
-var poppedOut;
+  var poppedOut;
   var _undoIt = function(){
     undoButton.addEventListener('click', function(){
-      console.log('history', historyOfActions)
-      console.log(historyOfActions);
-
+ event.preventDefault();
         poppedOut = historyOfActions.pop();
 
         for (key in poppedOut){
           console.log('the key', key);
           document.getElementById(key).style.backgroundColor = poppedOut[key];
-
         }
-console.log('history', historyOfActions)
-    })
 
+    })
 
   }
 
@@ -235,6 +234,23 @@ console.log('history', historyOfActions)
       gridOuterBox.style.backgroundColor = '#DEDFBE';
     })
   }
+
+
+
+  return {
+    htmlGenerator : _htmlGenerator,
+    mainGridGenerator : _mainGridGenerator,
+    colorSwatchGridGenerator : _colorSwatchGridGenerator,
+    undoIt : _undoIt,
+    eraseIt : _eraseIt,
+    clearIt : _clearIt,
+    mouseActions : _mouseActions
+    }
+
+
+}
+
+
 
 
 //build and input box that takes nums and places them here.
@@ -257,19 +273,3 @@ console.log('history', historyOfActions)
   // gridGeneratorButton.id = 'gridGeneratorButton';
   // gridGeneratorButton.innerHTML = 'Generate Grid'
   // gridContainer.appendChild(gridGeneratorButton);
-
-
-  return {
-    htmlGenerator : _htmlGenerator,
-    mainGridGenerator : _mainGridGenerator,
-    colorSwatchGridGenerator : _colorSwatchGridGenerator,
-    undoIt : _undoIt,
-    eraseIt : _eraseIt,
-    clearIt : _clearIt,
-    mouseActions : _mouseActions
-    }
-
-}
-
-
-
