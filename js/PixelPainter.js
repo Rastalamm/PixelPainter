@@ -1,5 +1,4 @@
 /*
-undo function
 
 unqiuely sized grids (add in buttons)
 
@@ -82,6 +81,11 @@ function pixelPainterApp () {
   var row = 0;
   var randomColor;
 
+  var mouseDowned;
+
+  var previousColor = {};
+  var historyOfActions = [];
+
   var _htmlGenerator = function(){
 
     mainContainer.appendChild(sidebar);
@@ -149,10 +153,7 @@ function pixelPainterApp () {
     }
   };
 
-  var mouseDowned;
 
-  var previousColor = {};
-  var historyOfActions = [];
 
   var _mouseActions = function(){
 
@@ -202,17 +203,17 @@ function pixelPainterApp () {
   }
 
 
-  var poppedOut;
+  var lastMove;
 
 
 
     undoButton.addEventListener('click', function(){
     event.preventDefault();
-        poppedOut = historyOfActions.pop();
+        lastMove = historyOfActions.pop();
 
-        for (key in poppedOut){
+        for (key in lastMove){
           console.log('the key', key);
-          document.getElementById(key).style.backgroundColor = poppedOut[key];
+          document.getElementById(key).style.backgroundColor = lastMove[key];
         }
 
     })
