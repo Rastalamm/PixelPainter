@@ -16,7 +16,6 @@ window.onload = function(){
   pixelPainterRun.htmlGenerator();
   pixelPainterRun.mainGridGenerator(15, 15);
   pixelPainterRun.colorSwatchGridGenerator(6, 6);
-  pixelPainterRun.undoIt();
   pixelPainterRun.eraseIt();
   pixelPainterRun.clearIt();
   pixelPainterRun.mouseActions();
@@ -204,9 +203,11 @@ function pixelPainterApp () {
 
 
   var poppedOut;
-  var _undoIt = function(){
+
+
+
     undoButton.addEventListener('click', function(){
- event.preventDefault();
+    event.preventDefault();
         poppedOut = historyOfActions.pop();
 
         for (key in poppedOut){
@@ -216,7 +217,7 @@ function pixelPainterApp () {
 
     })
 
-  }
+
 
   var _eraseIt = function(){
     document.getElementById('erase_button').addEventListener('click', function (){
@@ -228,6 +229,7 @@ function pixelPainterApp () {
   var _clearIt = function(){
     document.getElementById('clear_button').addEventListener('click', function (){
       colorSelected = '#FFFFFF';
+      previousColor = {};
       for(var i = 0; i < mainGridArray.length; i++){
         mainGridArray[i].style.backgroundColor = '#FFFFFF';
       }
@@ -241,7 +243,6 @@ function pixelPainterApp () {
     htmlGenerator : _htmlGenerator,
     mainGridGenerator : _mainGridGenerator,
     colorSwatchGridGenerator : _colorSwatchGridGenerator,
-    undoIt : _undoIt,
     eraseIt : _eraseIt,
     clearIt : _clearIt,
     mouseActions : _mouseActions
