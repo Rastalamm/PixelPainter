@@ -200,13 +200,12 @@ function pixelPainterApp(){
         }
     })
 
-// var atag = document.createElement("a");
+
     saveButton.addEventListener('click', function(){
       _scanGrid();
       _serializeGrid()
       window.location.href = '/#' + _serializeGrid()
     })
-
 
   }
 
@@ -242,7 +241,6 @@ function pixelPainterApp(){
 
   var _scanGrid = function(){
   var boxes = document.querySelectorAll('.a_box');
-    console.log('here', boxes[1].id);
 
     for(var i = 0; i < boxes.length; i++){
       entireGrid[boxes[i].id] = boxes[i].style.backgroundColor;
@@ -253,13 +251,6 @@ function pixelPainterApp(){
   var _serializeGrid = function(){
 
     return JSON.stringify(entireGrid);
-
-    // for(key in entireGrid){
-
-
-
-
-    // }
   }
 
 
