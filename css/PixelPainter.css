@@ -93,6 +93,22 @@
   color: #F26823;
 }
 
+#save_button{
+  width: 85px;
+  height: 25px;
+  clear: both;
+  color: white;
+  text-align: center;
+  border: 1px solid white;
+  line-height: 25px;
+  margin: 15px 0;
+  float: right;
+}
+
+#save_button:hover{
+  border: 1px solid #F26823;
+  color: #F26823;
+}
 
 
 #grid_outer_box{

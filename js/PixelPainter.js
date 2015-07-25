@@ -19,10 +19,10 @@ window.onload = function(){
   pixelPainterRun.clearIt();
   pixelPainterRun.mouseActions();
 
-  }
+}
 
 
-function pixelPainterApp () {
+function pixelPainterApp(){
 
   var mainContainer = document.createElement('div');
   mainContainer.id = 'pixel_container';
@@ -58,6 +58,9 @@ function pixelPainterApp () {
   undoButton.id = 'undo_div';
   undoButton.innerHTML = 'Undo';
 
+  var saveButton = document.createElement('div');
+  saveButton.id = "save_button";
+  saveButton.innerHTML = 'save';
 
   var gridOuterBox = document.createElement('div');
   gridOuterBox.id = 'grid_outer_box';
@@ -82,7 +85,7 @@ function pixelPainterApp () {
   var randomColor;
 
   var mouseDowned;
-
+  var lastMove;
   var previousColor = {};
   var historyOfActions = [];
 
@@ -97,12 +100,12 @@ function pixelPainterApp () {
     colorContainer.appendChild(colorSwatch);
     colorContainer.appendChild(eraseButton);
     colorContainer.appendChild(undoButton);
+    colorContainer.appendChild(saveButton);
 
     //Grid to fill in
     document.body.appendChild(mainContainer);
     mainContainer.appendChild(gridOuterBox)
     gridOuterBox.appendChild(gridContainer);
-
   }
 
 
@@ -116,7 +119,7 @@ function pixelPainterApp () {
 
       for(var j = 1; j <= column; j++){
         var aBox = document.createElement('div');
-        aBox.setAttribute('id', 'box' + idBoxCount);
+        aBox.setAttribute('id', + idBoxCount);
         idBoxCount++;
         aBox.setAttribute('class', 'a_box');
         aRow.appendChild(aBox);
@@ -136,7 +139,7 @@ function pixelPainterApp () {
         var colorBox = document.createElement('div');
         colorBox.setAttribute('id', 'colorbox' + j);
         randomColor = Math.floor(Math.random() * (colorArrayLength + 1))
-        colorBox.style.backgroundColor = colorArray[randomColor];
+        colorBox.style.backgroundColor = colorArray.pop();
         colorBox.setAttribute('class', 'color_box');
         aRow.appendChild(colorBox);
       }
@@ -148,7 +151,7 @@ function pixelPainterApp () {
         colorSelected = event.target.style.backgroundColor;
         //adds a white border to the color chosen -
         //need to add functionality to remove the last one that was clicked
-        event.target.style.border = '1px solid white';
+        //event.target.style.border = '1px solid white';
         gridOuterBox.style.backgroundColor = colorSelected;
       })
     }
@@ -157,9 +160,6 @@ function pixelPainterApp () {
 
 
   var _mouseActions = function(){
-
-
-
     //mousedown
     document.getElementById('gridtofill').addEventListener('mousedown', function(event){
       event.preventDefault();
@@ -178,18 +178,13 @@ function pixelPainterApp () {
     })
 
     //mouseover
-
     document.getElementById('gridtofill').addEventListener("mouseover", function(event){
       event.preventDefault();
       if(mouseDowned){
-
-      if(!(event.target.id in previousColor)){
-        previousColor[event['target'].id] = event.target.style.backgroundColor;
-      }
-
-
+        if(!(event.target.id in previousColor)){
+          previousColor[event['target'].id] = event.target.style.backgroundColor;
+        }
         event.target.style.backgroundColor = colorSelected;
-
       }
     })
 
@@ -197,19 +192,23 @@ function pixelPainterApp () {
         mouseDowned = false;
     })
 
-  }
-
-
-  var lastMove;
-
     undoButton.addEventListener('click', function(){
-    event.preventDefault();
+      event.preventDefault();
         lastMove = historyOfActions.pop();
         for (key in lastMove){
           document.getElementById(key).style.backgroundColor = lastMove[key];
         }
-
     })
+
+// var atag = document.createElement("a");
+    saveButton.addEventListener('click', function(){
+      _scanGrid();
+      _serializeGrid()
+      window.location.href = '/#' + _serializeGrid()
+    })
+
+
+  }
 
 
 
@@ -232,6 +231,38 @@ function pixelPainterApp () {
     })
   }
 
+  // var _saveIt = function(){
+
+  //   //scan the grid
+  //   //save box and colors in object
+
+  // }
+
+  var entireGrid = {};
+
+  var _scanGrid = function(){
+  var boxes = document.querySelectorAll('.a_box');
+    console.log('here', boxes[1].id);
+
+    for(var i = 0; i < boxes.length; i++){
+      entireGrid[boxes[i].id] = boxes[i].style.backgroundColor;
+    }
+    console.log('colro',entireGrid[44])
+  }
+
+  var _serializeGrid = function(){
+
+    return JSON.stringify(entireGrid);
+
+    // for(key in entireGrid){
+
+
+
+
+    // }
+  }
+
+
 
 
   return {
@@ -241,10 +272,10 @@ function pixelPainterApp () {
     eraseIt : _eraseIt,
     clearIt : _clearIt,
     mouseActions : _mouseActions
-    }
-
-
+  }
 }
+
+
 
 
 
