@@ -139,7 +139,7 @@ function pixelPainterApp(){
       // showSelectionPalette: true,
       togglePaletteOnly: true,
       clickoutFiresChange: false,
-      move: function(tinycolor) {console.log('something', colorSelected =  tinycolor.toHexString()) },
+      move: function(tinycolor) {colorSelected =  tinycolor.toHexString() },
     });
   }
 
@@ -241,6 +241,7 @@ function pixelPainterApp(){
       }
       gridOuterBox.style.backgroundColor = '#DEDFBE';
       historyOfActions = [];
+      window.location.href = '';
     })
   }
 
@@ -248,24 +249,14 @@ function pixelPainterApp(){
   var encodedLink;
 
   var _scanGrid = function(){
-  var boxes = document.querySelectorAll('.a_box');
-
-    // console.log('something', boxes[1].style.backgroundColor);
-    // var news = rgb2hex(boxes[1].style.backgroundColor)
-    // console.log(news);
+    var boxes = document.querySelectorAll('.a_box');
 
     for(var i = 0; i < boxes.length; i++){
 
-
-      console.log(boxes[i].style.backgroundColor);
       if(boxes[i].style.backgroundColor){
-
         entireGrid[boxes[i].id] = rgb2hex(boxes[i].style.backgroundColor);
       }
-
     }
-
-
   }
 
 
