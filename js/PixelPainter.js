@@ -18,6 +18,7 @@ window.onload = function(){
   pixelPainterRun.eraseIt();
   pixelPainterRun.clearIt();
   pixelPainterRun.mouseActions();
+  pixelPainterRun.reloadIt();
 
 }
 
@@ -119,7 +120,7 @@ function pixelPainterApp(){
 
       for(var j = 1; j <= column; j++){
         var aBox = document.createElement('div');
-        aBox.setAttribute('id', + idBoxCount);
+        aBox.setAttribute('id', 'box'+ idBoxCount);
         idBoxCount++;
         aBox.setAttribute('class', 'a_box');
         aRow.appendChild(aBox);
@@ -210,7 +211,6 @@ function pixelPainterApp(){
   }
 
 
-
   var _eraseIt = function(){
     document.getElementById('erase_button').addEventListener('click', function (){
       gridOuterBox.style.backgroundColor = '#FFFFFF';
@@ -230,13 +230,6 @@ function pixelPainterApp(){
     })
   }
 
-  // var _saveIt = function(){
-
-  //   //scan the grid
-  //   //save box and colors in object
-
-  // }
-
   var entireGrid = {};
 
   var _scanGrid = function(){
@@ -245,15 +238,34 @@ function pixelPainterApp(){
     for(var i = 0; i < boxes.length; i++){
       entireGrid[boxes[i].id] = boxes[i].style.backgroundColor;
     }
-    console.log('colro',entireGrid[44])
+
   }
+var encodedLink;
 
   var _serializeGrid = function(){
 
-    return JSON.stringify(entireGrid);
+    var stringified =  JSON.stringify(entireGrid);
+
+    encodedLink = btoa(stringified);
+    return encodedLink;
+
   }
 
+  var reloadIt = function(){
 
+
+    if (window.location.hash){
+
+      var theURL = window.location.hash.replace('#', '');
+      var decodedLink = atob(theURL);
+      var obj = JSON.parse(decodedLink);
+
+      for(key in obj){
+        console.log(key);
+        document.getElementById(key).style.backgroundColor = obj[key];
+      }
+
+  };
 
 
   return {
@@ -262,7 +274,8 @@ function pixelPainterApp(){
     colorSwatchGridGenerator : _colorSwatchGridGenerator,
     eraseIt : _eraseIt,
     clearIt : _clearIt,
-    mouseActions : _mouseActions
+    mouseActions : _mouseActions,
+    reloadIt : reloadIt
   }
 }
 
