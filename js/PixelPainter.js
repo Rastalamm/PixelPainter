@@ -131,31 +131,44 @@ function pixelPainterApp(){
 
   var _colorSwatchGridGenerator = function(column, row){
 
-    for(var i = 1; i <= row; i++){
-      var aRow = document.createElement('div');
-      aRow.setAttribute('id', 'colorrow' + i);
-      aRow.setAttribute('class', 'row');
+      $("#color_swatch").spectrum({
+    flat: true,
+    showButtons: false,
+    // showInput: false,
+    // showInitial: true,
+    // showSelectionPalette: true,
+    togglePaletteOnly: true,
+    clickoutFiresChange: false,
+    move: function(tinycolor) {console.log('something', colorSelected =  tinycolor.toHexString()) },
+  });
 
-      for(var j = 1; j <= column; j++){
-        var colorBox = document.createElement('div');
-        colorBox.setAttribute('id', 'colorbox' + j);
-        randomColor = Math.floor(Math.random() * (colorArrayLength + 1))
-        colorBox.style.backgroundColor = colorArray.pop();
-        colorBox.setAttribute('class', 'color_box');
-        aRow.appendChild(colorBox);
-      }
-      colorSwatch.appendChild(aRow);
-    }
 
-    for(var w = 0; w < colorClassArray.length; w++){
-      colorClassArray[w].addEventListener("click", function(event){
-        colorSelected = event.target.style.backgroundColor;
-        //adds a white border to the color chosen -
-        //need to add functionality to remove the last one that was clicked
-        //event.target.style.border = '1px solid white';
-        gridOuterBox.style.backgroundColor = colorSelected;
-      })
-    }
+
+    // for(var i = 1; i <= row; i++){
+    //   var aRow = document.createElement('div');
+    //   aRow.setAttribute('id', 'colorrow' + i);
+    //   aRow.setAttribute('class', 'row');
+
+    //   for(var j = 1; j <= column; j++){
+    //     var colorBox = document.createElement('div');
+    //     colorBox.setAttribute('id', 'colorbox' + j);
+    //     randomColor = Math.floor(Math.random() * (colorArrayLength + 1))
+    //     colorBox.style.backgroundColor = colorArray.pop();
+    //     colorBox.setAttribute('class', 'color_box');
+    //     aRow.appendChild(colorBox);
+    //   }
+    //   colorSwatch.appendChild(aRow);
+    // }
+
+    // for(var w = 0; w < colorClassArray.length; w++){
+    //   colorClassArray[w].addEventListener("click", function(event){
+    //     colorSelected = event.target.style.backgroundColor;
+    //     //adds a white border to the color chosen -
+    //     //need to add functionality to remove the last one that was clicked
+    //     //event.target.style.border = '1px solid white';
+    //     gridOuterBox.style.backgroundColor = colorSelected;
+    //   })
+    // }
   };
 
 
