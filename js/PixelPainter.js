@@ -240,7 +240,7 @@ function pixelPainterApp(){
     }
 
   }
-var encodedLink;
+  var encodedLink;
 
   var _serializeGrid = function(){
 
@@ -264,7 +264,7 @@ var encodedLink;
         console.log(key);
         document.getElementById(key).style.backgroundColor = obj[key];
       }
-
+    }
   };
 
 
