@@ -14,7 +14,8 @@ window.onload = function(){
 
   pixelPainterRun.htmlGenerator();
   pixelPainterRun.mainGridGenerator(15, 15);
-  pixelPainterRun.colorSwatchGridGenerator(6, 6);
+  // pixelPainterRun.colorSwatchGridGenerator(6, 6);
+  pixelPainterRun.colorPickerGenerator();
   pixelPainterRun.eraseIt();
   pixelPainterRun.clearIt();
   pixelPainterRun.mouseActions();
@@ -120,7 +121,7 @@ function pixelPainterApp(){
 
       for(var j = 1; j <= column; j++){
         var aBox = document.createElement('div');
-        aBox.setAttribute('id', 'box'+ idBoxCount);
+        aBox.setAttribute('id', + idBoxCount);
         idBoxCount++;
         aBox.setAttribute('class', 'a_box');
         aRow.appendChild(aBox);
@@ -129,46 +130,46 @@ function pixelPainterApp(){
     }
   };
 
+  var _colorPickerGenerator = function(){
+    $("#color_swatch").spectrum({
+      flat: true,
+      showButtons: false,
+      // showInput: false,
+      // showInitial: true,
+      // showSelectionPalette: true,
+      togglePaletteOnly: true,
+      clickoutFiresChange: false,
+      move: function(tinycolor) {console.log('something', colorSelected =  tinycolor.toHexString()) },
+    });
+  }
+
   var _colorSwatchGridGenerator = function(column, row){
 
-      $("#color_swatch").spectrum({
-    flat: true,
-    showButtons: false,
-    // showInput: false,
-    // showInitial: true,
-    // showSelectionPalette: true,
-    togglePaletteOnly: true,
-    clickoutFiresChange: false,
-    move: function(tinycolor) {console.log('something', colorSelected =  tinycolor.toHexString()) },
-  });
+    for(var i = 1; i <= row; i++){
+      var aRow = document.createElement('div');
+      aRow.setAttribute('id', 'colorrow' + i);
+      aRow.setAttribute('class', 'row');
 
+      for(var j = 1; j <= column; j++){
+        var colorBox = document.createElement('div');
+        colorBox.setAttribute('id', 'colorbox' + j);
+        randomColor = Math.floor(Math.random() * (colorArrayLength + 1))
+        colorBox.style.backgroundColor = colorArray.pop();
+        colorBox.setAttribute('class', 'color_box');
+        aRow.appendChild(colorBox);
+      }
+      colorSwatch.appendChild(aRow);
+    }
 
-
-    // for(var i = 1; i <= row; i++){
-    //   var aRow = document.createElement('div');
-    //   aRow.setAttribute('id', 'colorrow' + i);
-    //   aRow.setAttribute('class', 'row');
-
-    //   for(var j = 1; j <= column; j++){
-    //     var colorBox = document.createElement('div');
-    //     colorBox.setAttribute('id', 'colorbox' + j);
-    //     randomColor = Math.floor(Math.random() * (colorArrayLength + 1))
-    //     colorBox.style.backgroundColor = colorArray.pop();
-    //     colorBox.setAttribute('class', 'color_box');
-    //     aRow.appendChild(colorBox);
-    //   }
-    //   colorSwatch.appendChild(aRow);
-    // }
-
-    // for(var w = 0; w < colorClassArray.length; w++){
-    //   colorClassArray[w].addEventListener("click", function(event){
-    //     colorSelected = event.target.style.backgroundColor;
-    //     //adds a white border to the color chosen -
-    //     //need to add functionality to remove the last one that was clicked
-    //     //event.target.style.border = '1px solid white';
-    //     gridOuterBox.style.backgroundColor = colorSelected;
-    //   })
-    // }
+    for(var w = 0; w < colorClassArray.length; w++){
+      colorClassArray[w].addEventListener("click", function(event){
+        colorSelected = event.target.style.backgroundColor;
+        //adds a white border to the color chosen -
+        //need to add functionality to remove the last one that was clicked
+        //event.target.style.border = '1px solid white';
+        gridOuterBox.style.backgroundColor = colorSelected;
+      })
+    }
   };
 
 
@@ -244,23 +245,44 @@ function pixelPainterApp(){
   }
 
   var entireGrid = {};
+  var encodedLink;
 
   var _scanGrid = function(){
   var boxes = document.querySelectorAll('.a_box');
 
+    // console.log('something', boxes[1].style.backgroundColor);
+    // var news = rgb2hex(boxes[1].style.backgroundColor)
+    // console.log(news);
+
     for(var i = 0; i < boxes.length; i++){
-      entireGrid[boxes[i].id] = boxes[i].style.backgroundColor;
+
+
+      console.log(boxes[i].style.backgroundColor);
+      if(boxes[i].style.backgroundColor){
+
+        entireGrid[boxes[i].id] = rgb2hex(boxes[i].style.backgroundColor);
+      }
+
     }
 
+
   }
-  var encodedLink;
+
+
+  var rgb2hex = function (rgb) {
+    rgb = rgb.match(/^rgb\((\d+),\s*(\d+),\s*(\d+)\)$/);
+    function hex(x) {
+        return ("0" + parseInt(x).toString(16)).slice(-2);
+    }
+    return hex(rgb[1]) + hex(rgb[2]) + hex(rgb[3]);
+  }
 
   var _serializeGrid = function(){
 
     var stringified =  JSON.stringify(entireGrid);
 
-    encodedLink = btoa(stringified);
-    return encodedLink;
+    // encodedLink = btoa(stringified);
+    return stringified;
 
   }
 
@@ -270,12 +292,12 @@ function pixelPainterApp(){
     if (window.location.hash){
 
       var theURL = window.location.hash.replace('#', '');
-      var decodedLink = atob(theURL);
-      var obj = JSON.parse(decodedLink);
+      // var decodedLink = atob(theURL);
+      var obj = JSON.parse(theURL);
 
       for(key in obj){
-        console.log(key);
-        document.getElementById(key).style.backgroundColor = obj[key];
+        console.log(obj[key]);
+        document.getElementById(key).style.backgroundColor = '#' + obj[key];
       }
     }
   };
@@ -285,6 +307,7 @@ function pixelPainterApp(){
     htmlGenerator : _htmlGenerator,
     mainGridGenerator : _mainGridGenerator,
     colorSwatchGridGenerator : _colorSwatchGridGenerator,
+    colorPickerGenerator : _colorPickerGenerator,
     eraseIt : _eraseIt,
     clearIt : _clearIt,
     mouseActions : _mouseActions,
